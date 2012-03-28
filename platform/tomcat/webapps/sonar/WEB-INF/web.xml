@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+  <display-name>Sonar</display-name>
+
+  <context-param>
+    <param-name>public.root</param-name>
+    <param-value>/</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>rails.env</param-name>
+    <param-value>production</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>jruby.min.runtimes</param-name>
+    <param-value>1</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>jruby.max.runtimes</param-name>
+    <param-value>1</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>DatabaseSessionFilter</filter-name>
+    <filter-class>org.sonar.server.ui.DatabaseSessionFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>RackFilter</filter-name>
+    <filter-class>org.jruby.rack.RackFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>GZIPFilter</filter-name>
+    <filter-class>org.mortbay.servlet.GzipFilter</filter-class>
+    <init-param>
+      <param-name>minGzipSize</param-name>
+      <param-value>1024</param-value>
+    </init-param>
+    <init-param>
+      <param-name>bufferSize</param-name>
+      <param-value>16384</param-value>
+    </init-param>
+
+    <!--
+      IE6 does not correctly support GZIP compression : http://jira.codehaus.org/browse/SONAR-2191
+      Some links :
+      http://comments.gmane.org/gmane.org.google.gwt/50660
+      http://stackoverflow.com/questions/138880/ie6-freezes-due-to-server-configuration/422730#422730
+      http://sebduggan.com/posts/ie6-gzip-bug-solved-using-isapi-rewrite
+
+      To deactivate GZIP compression for IE6 browsers, the two following properties must be uncommented.
+
+    <init-param>
+      <param-name>userAgent</param-name>
+      <param-value>(?:Mozilla[^\(]*\(compatible;\s*+([^;]*);.*)|(?:.*?([^\s]+/[^\s]+).*)</param-value>
+    </init-param>
+    <init-param>
+      <param-name>excludedAgents</param-name>
+      <param-value>MSIE 6.0</param-value>
+    </init-param>
+
+    -->
+  </filter>
+  <filter-mapping>
+    <filter-name>GZIPFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>DatabaseSessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>RackFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>chart</servlet-name>
+    <servlet-class>org.sonar.server.charts.ChartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>gchart</servlet-name>
+    <servlet-class>org.jfree.eastwood.ChartServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>static</servlet-name>
+    <servlet-class>org.sonar.server.plugins.StaticResourcesServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>batch</servlet-name>
+    <servlet-class>org.sonar.server.plugins.BatchResourcesServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>chart</servlet-name>
+    <url-pattern>/chart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>gchart</servlet-name>
+    <url-pattern>/gchart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>static</servlet-name>
+    <url-pattern>/static/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>batch</servlet-name>
+    <url-pattern>/batch/*</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <!-- in minutes -->
+    <session-timeout>20</session-timeout>
+  </session-config>
+
+  <listener>
+    <listener-class>org.sonar.server.platform.PlatformLifecycleListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.jruby.rack.rails.RailsServletContextListener</listener-class>
+  </listener>
+
+</web-app>

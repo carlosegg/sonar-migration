@@ -1,0 +1,98 @@
+<script>
+function installPlugin(key) {
+/* check terms & conditions */
+var tc=$('tc-' + key)
+if (tc!=null && !tc.checked) {
+alert('Please accept the Terms and Conditions');
+return false;
+}
+$('install-form-' + key).submit();
+var button=$('submit-' + key);
+button.disable();
+button.writeAttribute('value', 'Installing');
+return false;
+}
+</script>
+<%= render :partial => 'updatecenter/tabs', :locals => {:tab => 'available'} -%>
+<div class="tabs-panel">
+<%= render :partial => 'updatecenter/operations' -%>
+<% if @center %>
+<% @updates_by_category.keys.sort_by{|c| c.downcase }.each do |category|
+updates=@updates_by_category[category]
+%>
+<table class="data width100">
+<thead>
+<tr>
+<th colspan="2"><h2><%= category -%></h2></th>
+</tr>
+</thead>
+<tbody>
+<% updates.sort_by{|c| c.getPlugin().getName()}.each do |update|
+plugin=update.getPlugin()
+%>
+<tr class="<%= cycle('even','odd', :name => category) -%>">
+<td width="150" nowrap>
+<b><a href="#plugin" onClick="showPlugin('<%= plugin.getKey() -%>');"><%= h(plugin.getName()) -%></a></b>
+</td>
+<td>
+<%= plugin.getDescription() %>
+<div id="detail-<%= plugin.getKey() -%>" style="display:none">
+<table class="spaced width100">
+<% if plugin.getLicense() %>
+<tr>
+<td class="thin nowrap"><b>License:</b> </td><td><%= h(plugin.getLicense()) %></td>
+</tr>
+<% end %>
+<% if plugin.getOrganization() %>
+<tr>
+<td class="thin nowrap"><b>Author:</b> </td><td><%= link_to_if plugin.getOrganizationUrl(), plugin.getOrganization(), plugin.getOrganizationUrl(), :class=>'external'  %></td>
+</tr>
+<% end %>
+<% if plugin.getHomepageUrl() || plugin.getIssueTrackerUrl() %>
+<tr>
+<td class="thin nowrap"><b>Links:</b> </td>
+<td>
+<%= link_to 'Homepage', plugin.getHomepageUrl(), :class=>'external' if plugin.getHomepageUrl() -%>
+<%= link_to "Issue Tracker", plugin.getIssueTrackerUrl(), :class=>'external' if plugin.getIssueTrackerUrl() -%>
+</td>
+</tr>
+<% end %>
+<%
+if update.isCompatible()
+%>
+<tr>
+<% date=release_date(update.getRelease().getDate()) %>
+<td class="thin nowrap"><b>Version:</b> </td>
+<td><%= update.getRelease().getVersion() -%> <%= "(#{date})" if date -%></td>
+</tr>
+<tr>
+<td colspan="2">
+<% if plugin.getTermsConditionsUrl() %>
+<input type="checkbox" id="tc-<%= plugin.getKey() -%>"></input> I accept the <%= link_to 'Terms and Conditions', plugin.getTermsConditionsUrl(), :class => 'external' %>
+<% end %>
+<form method="post" action="<%= ApplicationController.root_context -%>/updatecenter/install?from=available&key=<%= plugin.getKey() -%>&version=<%= update.getRelease().getVersion() -%>" style="display: inline-block" id="install-form-<%= plugin.getKey() -%>">
+<input type="submit" value="Install" onClick="installPlugin('<%= plugin.getKey() -%>');return false;" id="submit-<%= plugin.getKey() -%>"></input>
+</form>
+</td>
+</tr>
+<% elsif update.requiresSonarUpgrade
+%>
+<tr>
+<td class="thin nowrap"><b>Last version:</b> </td>
+<td><%= update.getRelease().getVersion() -%> (<%= image_tag 'warning.png' -%> Not compatible, requires Sonar upgrade)</td>
+</tr>
+<%
+end
+%>
+</table>
+</div>
+</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<div class="break30"> </div>
+<% end %>
+<% end %>
+<%= render :partial => 'updatecenter/status', :locals => {:action => 'available' } %>
+</div>

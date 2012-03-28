@@ -1,0 +1,52 @@
+<% #locals = rule, is_admin
+note = rule.note
+note_detail_div_id = "nd_" + rule.id.to_s
+note_extend_link_id = "nel_" + rule.id.to_s
+note_form_div_id = "nf_" + rule.id.to_s
+note_textarea_id = "nt_" + rule.id.to_s
+submit_note_update_button_id = "snub_" + rule.id.to_s
+%>
+<div id="<%= note_detail_div_id -%>">
+<% if rule.description.strip.start_with?('<p>') %>
+<%= rule.description %>
+<% else %>
+<p><%= rule.description %></p>
+<% end %>
+<% if note && !note.text.strip.blank? %>
+<p><%= note.html_text -%></p>
+<% end %>
+<% if is_admin %>
+<div>
+<a href="#" id="<%= note_extend_link_id -%>" class="link-action spacer-right"
+onclick="$('<%= note_detail_div_id -%>').hide();$('<%= note_form_div_id -%>').show();$('<%= note_textarea_id -%>').focus();return false;"><%= message('rules_configuration.extend_description') %></a>
+</div>
+<% end %>
+</div>
+<% if is_admin %>
+<div id="<%= note_form_div_id -%>" style="display: none" class="admin">
+<%= form_remote_tag :url => {:action => 'update_rule_note', :rule_id => rule.id},
+:update => "rule_note_#{rule.id}" %>
+<table class="width100 table">
+<tbody>
+<tr>
+<td colspan="2"><%= rule.description %></td>
+</tr>
+<tr>
+<td class="width100">
+<textarea name="text" id="<%= note_textarea_id -%>" rows="10" style="width:100%"><%= h(note.plain_text) if note -%></textarea>
+</td>
+<td class="markdown-tips">
+<%= render :partial => 'markdown/tips' -%>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<input type="submit" value="<%= message('rules_configuration.extend_description') -%>" name="commit" id="<%= submit_note_update_button_id -%>"/>
+<a href="#" onclick="$('<%= note_detail_div_id -%>').show();$('<%= note_form_div_id -%>').hide();return false;"><%= message('cancel') %></a>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+<% end %>

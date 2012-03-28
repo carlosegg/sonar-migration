@@ -1,0 +1,20 @@
+base: &base
+  adapter: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getDatabase().getDialect().getActiveRecordJdbcAdapter() %>
+  username: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getConfigurationValue('sonar.jdbc.username' ) || 'sonar' %>
+  password: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getConfigurationValue('sonar.jdbc.password') || 'sonar' %>
+  url: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getConfigurationValue('sonar.jdbc.url') %>
+  dialect: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getDatabase().getDialect().getActiveRecordDialectCode() %>
+  driver: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getConfigurationValue('sonar.jdbc.driverClassName') %>
+  pool: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getConfigurationValue('sonar.jdbc.maxActive') || 10 %>
+
+  # postgreSQL
+  schema_search_path: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getDatabase().getSchema() %>
+
+  # Oracle
+  schema: <%= ::Java::OrgSonarServerUi::JRubyFacade.getInstance().getDatabase().getSchema() %>
+  
+development:
+  <<: *base
+
+production:
+  <<: *base

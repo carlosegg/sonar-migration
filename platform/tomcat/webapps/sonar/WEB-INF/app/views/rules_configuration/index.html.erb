@@ -1,0 +1,127 @@
+<script type="text/javascript">
+var localModifications=false;
+function get_level_for_rule(rule_select_box,rule_check_box) {
+return rule_check_box.checked ? rule_select_box.value : '';
+}
+function submitBulkForm() {
+if (localModifications) {
+alert("Please refresh the search results before.");
+$('bulk-form').reset();
+} else {
+$('bulk-form').submit();
+}
+return !localModifications;
+}
+function downloadCsv() {
+if (localModifications) {
+alert("Please refresh the search results before.");
+}
+return !localModifications;
+}
+function toggle_rules(){
+$$('.rule_detail').each(function(element) {
+element.toggle();
+});
+}
+</script>
+<h1 class="marginbottom10"><%= link_to message('quality_profiles.quality_profiles'), :controller => 'profiles', :action => 'index' -%> / <%= h @profile.language -%> / <%= h @profile.name %></h1>
+<%= render :partial => 'profiles/tabs', :locals => {:selected_tab=>'Coding rules'} %>
+<% enable_modification = is_admin? && !@profile.provided? %>
+<div class="tabs-panel marginbottom10 background-gray">
+<% if is_admin? && @profile.provided? %>
+<div class="line-info note marginbottom10">
+<%= message('rules_configuration.profile_cant_be_updated_description') -%>
+</div>
+<% end %>
+<% form_tag({:action => 'index'}, {:method => 'get'}) do %>
+<% hidden_field_tag "id", @id %>
+<table class="table" id="search_table">
+<tr>
+<td class="left" valign="top" width="1%" nowrap>
+<span class="note"><%= message('name') -%>/<%= message('key') -%></span><br/>
+<%= text_field_tag "searchtext", @searchtext, :id => 'searchtext' %>
+</td>
+<td class="left" valign="top" width="1%" nowrap>
+<span class="note"><%= message('plugin') -%></span><br/>
+<%= select_tag "plugins", options_for_select(@select_plugins, @plugins), :id => 'search_plugin', :multiple => true, :size => 6 %>
+</td>
+<td class="left" valign="top" width="1%" nowrap>
+<span class="note"><%= message('severity') -%></span><br/>
+<%= select_tag "priorities", options_for_select(@select_priority, @priorities), :id => 'search_priority', :multiple => true, :size => 6 %>
+</td>
+<td class="left" valign="top" width="1%" nowrap>
+<span class="note"><%= message('status') -%></span><br/>
+<%= select_tag "rule_status", options_for_select(@select_status, @status), :id => 'search_status', :size => 6 %>
+</td>
+<% if @profile.inherited? %>
+<td class="left" valign="top" width="1%" nowrap>
+<span class="note"><%= message('inheritance') -%></span><br/>
+<%= select_tag "inheritance", options_for_select(@select_inheritance, @inheritance), :id => 'search_inheritance', :size => 6 %>
+</td>
+<% end %>
+<td class="left" valign="top" >
+<br/>
+<%= submit_tag message('search_verb'), :id => 'submit_search' %>
+</td>
+</tr>
+</table>
+<% end %>
+</div>
+<div class="line-block marginbottom10">
+<ul style="float: right" class="horizontal">
+<li class="marginleft10">
+<div class="csv">
+<a href="<%= url_for(:controller => 'api/rules', :action => 'index', :language => @profile.language, :profile => @profile.name, :plugins => @plugins.join(','), :status => @status, :inheritance => @inheritance, :searchtext => @searchtext, :priorities => @priorities.join(','), :format => 'csv') -%>" onClick="return downloadCsv()" id="download-link" class=""><%= message('download_verb') -%></a>
+</div>
+</li>
+<% if enable_modification %>
+<li class="marginleft10">
+<div class="bulk-edit"><%= message('bulk_change') -%>:
+<form action="<%= ApplicationController.root_context -%>/rules_configuration/bulk_edit" method="POST" style="display: inline;vertical-align: middle" id="bulk-form">
+<input type="hidden" name="id" value="<%= @profile.id -%>"/>
+<input type="hidden" name="bulk_rule_ids" value="<%= @rules.map{|r| r.id}.join(',') -%>"/>
+<select name="bulk_action" onChange="submitBulkForm()" style="height: 16px;margin: 0; padding: 0;vertical-align: top">
+<option value="" selected></option>
+<option value="activate"><%= message('activate_all') -%></option>
+<option value="deactivate"><%= message('deactivate_all') -%></option>
+</select>
+</form>
+</div>
+</li>
+<% end %>
+</ul>
+<h2><%= @rules.size %> <%= message('results').downcase -%>
+<% if @hidden_actives && @hidden_actives>0 %><span class="small">[<a href="<%= url_for params.merge({:rule_status => ''}) -%>" id="active-rules-link">+<%= message('rules_configuration.x_found_in_active_rules', :params => @hidden_actives) -%></a>]</span><% end %>
+<% if @hidden_inactives && @hidden_inactives>0 %><span class="small">[<a href="<%= url_for params.merge({:rule_status => ''}) -%>" id="inactive-rules-link">+<%= message('rules_configuration.x_found_in_inactive_rules', :params => @hidden_inactives) -%></a>]</span><% end %>
+</h2>
+</div>
+<table class="table table-bordered width100 spacer-bottom" id="result_table">
+<thead>
+<tr>
+<th class="left" nowrap><%= message('active') -%>/<%= message('severity') -%></th>
+<th class="left"><%= message('name') -%> <span style="font-weight: normal">[<%= link_to_function(message('rules_configuration.expand_collapse'), "toggle_rules()") %>]</span></th>
+</tr>
+</thead>
+<tbody>
+<% if @rules.empty? %>
+<tr><td colspan="3" class="even"><%= message('no_results') -%>.</td></tr>
+<% end %>
+<%
+# avoid executing several times the method is_admin?()
+is_admin=is_admin?()
+@rules.each do |rule|
+active_rule = @profile.active_by_rule_id(rule.id)
+%>
+<tr id="rule_<%= rule.id -%>">
+<%= render :partial => 'rule', :object => rule, :locals => {:profile => @profile, :rule => rule, :active_rule => active_rule, :is_admin => is_admin} %>
+</tr>
+<% end %>
+</tbody>
+</table>
+<script type="text/javascript">
+function replaceTextField(span_id, key) {
+var text_field_value = $F(key);
+var text_area = '<textarea cols="100" id="' + key + '" name="value" rows="10">' + text_field_value + '</textarea><br/>';
+$(span_id).replace(text_area);
+}
+</script>

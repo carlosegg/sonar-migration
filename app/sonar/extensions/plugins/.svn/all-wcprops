@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins
+END
+sonar-flex-plugin-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/35/trunk/develenv/sonar/src/site/resources/plugins/sonar-flex-plugin-1.0.jar
+END
+sonar-build-stability-plugin-1.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-build-stability-plugin-1.1.2.jar
+END
+sonar-csharp-stylecop-plugin-1.0-RC2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-stylecop-plugin-1.0-RC2.jar
+END
+sonar-taglist-plugin-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-taglist-plugin-1.0.jar
+END
+sonar-total-quality-plugin-1.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-total-quality-plugin-1.0.2.jar
+END
+sonar-javascript-plugin-0.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/33/trunk/develenv/sonar/src/site/resources/plugins/sonar-javascript-plugin-0.4.jar
+END
+sonar-softwaresano-plugin-0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-softwaresano-plugin-0.1.jar
+END
+sonar-csv-export-plugin-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csv-export-plugin-1.2.jar
+END
+sonar-emma-plugin-1.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-emma-plugin-1.2.1.jar
+END
+sonar-python-plugin-0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/23/trunk/develenv/sonar/src/site/resources/plugins/sonar-python-plugin-0.1.jar
+END
+sonar-l10n-es-plugin-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/44/trunk/develenv/sonar/src/site/resources/plugins/sonar-l10n-es-plugin-1.4.jar
+END
+sonar-fb-contrib-plugin-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-fb-contrib-plugin-1.1.jar
+END
+sonar-csharp-squid-plugin-1.0-RC1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-squid-plugin-1.0-RC1.jar
+END
+sonar-c-plugin-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/28/trunk/develenv/sonar/src/site/resources/plugins/sonar-c-plugin-1.4.jar
+END
+sonar-useless-code-tracker-plugin-0.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-useless-code-tracker-plugin-0.4.jar
+END
+sonar-php-plugin-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5/trunk/develenv/sonar/src/site/resources/plugins/sonar-php-plugin-1.0.jar
+END
+sonar-csharp-core-plugin-1.0-RC2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-core-plugin-1.0-RC2.jar
+END
+sonar-technicaldebt-plugin-1.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-technicaldebt-plugin-1.2.1.jar
+END
+sonar-quality-index-plugin-1.1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-quality-index-plugin-1.1.3.jar
+END
+sonar-security-rules-plugin-0.3.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-security-rules-plugin-0.3.2.jar
+END
+sonar-cxx-plugin-0.0.5-SNAPSHOT.jar
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-cxx-plugin-0.0.5-SNAPSHOT.jar
+END
+sonar-artifact-size-plugin-0.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-artifact-size-plugin-0.3.jar
+END
+sonar-motion-chart-plugin-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-motion-chart-plugin-1.3.jar
+END
+sonar-timeline-plugin-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-timeline-plugin-1.2.jar
+END
+sonar-pdfreport-plugin-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/32/trunk/develenv/sonar/src/site/resources/plugins/sonar-pdfreport-plugin-1.3.jar
+END
+sonar-csharp-gallio-plugin-1.0-RC2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-gallio-plugin-1.0-RC2.jar
+END
+sonar-sigmm-plugin-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-sigmm-plugin-1.0.1.jar
+END
+sonar-clirr-plugin-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-clirr-plugin-1.1.jar
+END
+sonar-web-plugin-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-web-plugin-1.1.jar
+END
+sonar-scm-activity-plugin-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-scm-activity-plugin-1.3.jar
+END
+sonar-ldap-plugin-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-ldap-plugin-1.0.jar
+END
+sonar-csharp-fxcop-plugin-1.0-RC2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-fxcop-plugin-1.0-RC2.jar
+END
+sonar-googleanalytics-plugin-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-googleanalytics-plugin-1.0.jar
+END
+sonar-csharp-gendarme-plugin-1.0-RC2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-csharp-gendarme-plugin-1.0-RC2.jar
+END
+sonar-jira-plugin-0.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-jira-plugin-0.3.jar
+END
+sonar-groovy-plugin-0.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/develenv/sonar/src/site/resources/plugins/sonar-groovy-plugin-0.5.jar
+END

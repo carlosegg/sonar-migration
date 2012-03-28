@@ -1,0 +1,123 @@
+<style type="text/css">
+#plugins .plugin {
+padding: 5px;
+border: 1px solid #ddd;
+background-color: #fff;
+}
+#plugins .plugin h2 {
+margin-left: 10px;
+font-size: 122%;
+color: #333;
+}
+#plugins .plugin h3 {
+margin-left: 5px;
+}
+#plugins .plugin p {
+padding: 5px 5px;
+}
+#plugins .plugin img {
+padding: 5px 0 0 5px;
+}
+</style>
+<script type="text/javascript">
+function replaceTextField(span_id, key) {
+var text_field_value = $F(key);
+var text_area = '<textarea cols="100" id="' + key + '" name="' + key + '" rows="10">' + text_field_value + '</textarea>';
+$(span_id).replace(text_area);
+}
+</script>
+<div id="plugins">
+<table width="100%">
+<tr>
+<td width="1%" nowrap class="column first">
+<table class="data selector">
+<thead>
+<tr>
+<th>
+<span>Category</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<%
+@properties_per_category.keys.sort_by { |category| message("property.category.#{category}", :default => category).upcase }.each do |category|
+if !@properties_per_category[category].empty? || SettingsController::SPECIAL_CATEGORIES.include?(category)
+%>
+<tr class="select <%= cycle('even', 'odd', :name => 'category') -%> <%= 'selected' if @category==category -%>" id="select_<%= category -%>">
+<td><%= link_to message("property.category.#{category}", :default => category), :overwrite_params => {:category => category} -%></td>
+</tr>
+<% end
+end
+%>
+</tbody>
+</table>
+<br/>
+</td>
+<td class="column">
+<% if @category && @properties_per_category[@category]
+category_name = message("property.category.#{@category}", :default => @category)
+if SettingsController::SPECIAL_CATEGORIES.include?(@category)
+%>
+<%= render :partial => 'special', :locals => {:url => url_for(:controller => "#{@category}_configuration")} -%>
+<%
+elsif !@properties_per_category[@category].empty?
+%>
+<% form_tag :controller => :settings, :action => :update do %>
+<%= hidden_field_tag('category', @category) -%>
+<% if @project %>
+<input type="hidden" name="resource_id" value="<%= @project.id -%>"/>
+<% end %>
+<table class="data marginbottom10">
+<thead>
+<tr>
+<th>
+<span><%= h(category_name) -%></span>
+</th>
+</tr>
+</thead>
+<tbody>
+<%
+if @properties_per_category[@category]
+@properties_per_category[@category].each do |property|
+value = Property.value(property.key(), (@project ? @project.id : nil), '')
+%>
+<tr class="<%= cycle('even', 'odd', :name => 'properties') -%>">
+<td style="padding: 10px">
+<h3>
+<%= message("property.#{property.key()}.name", :default => property.name()) -%>
+<br/><span class="note"><%= property.key() -%></span>
+</h3>
+<%
+desc=message("property.#{property.key()}.description", :default => property.description())
+if desc.present? %>
+<p class="marginbottom10"><%= desc -%></p>
+<% end %>
+<p>
+<% span_id = "text_" + property.key().gsub('.', '_') %>
+<% textfield = text_field_tag property.key(), value, :size => '20' %>
+<% textfield += link_to_function(image_tag("zoom.png"), "replaceTextField('#{span_id}', '#{property.key()}')", :id => "toggle_text", :class => 'nolink') %>
+<% textarea = text_area_tag property.key(), value, :size => "100x10" %>
+<span id="<%= span_id %>"><%= (value && value.length >= 50) ? textarea : textfield -%></span>
+<%
+default_prop_value = (@project ? Property.value(property.key(), nil, property.defaultValue()) : property.defaultValue())
+unless default_prop_value.blank? %>
+<span class="note">Default : <%= h default_prop_value -%></span>
+<% end %>
+</p>
+</td>
+</tr>
+<% end
+end
+%>
+</tbody>
+</table>
+<% save_message=message('settings.save_category', :params => [category_name]) %>
+<%= submit_tag(save_message, :disable_with => save_message, :id => 'save') -%>
+<% end %>
+<% end
+end
+%>
+</td>
+</tr>
+</table>
+</div>
