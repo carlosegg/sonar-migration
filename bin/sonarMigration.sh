@@ -27,7 +27,7 @@ sed -i s:"\${sonar\.jdbc\.password}":"${sonar_jdbc_password}":g $TARGET_DIR/bin/
 sed -i s:"\${projectName}":"${projectName}":g $TARGET_DIR/bin/installSonarDB.sh
 sed -i s:"\${sonar\.user}":"${sonar_user}":g $TARGET_DIR/bin/installSonarDB.sh
 sed -i s:"\. \./setEnv\.sh":"\. $PROJECT_HOME_DEVELENV/bin/setEnv\.sh":g $TARGET_DIR/bin/installSonarDB.sh
-sed -i s:"sonar\.jdbc\.password\:.*":"sonar\.jdbc\.password\:                       develenv":g $TARGET_DIR/app/sonar/conf/sonar.properties
+sed -i s:"sonar\.jdbc\.password\:.*":"sonar\.jdbc\.password\:                       ${sonar_jdbc_password}":g $TARGET_DIR/app/sonar/conf/sonar.properties
 /etc/init.d/develenv stop
 sleep 10
 su develenv -c "rm -Rf $PROJECT_HOME_DEVELENV/platform/tomcat/webapps/sonar"
